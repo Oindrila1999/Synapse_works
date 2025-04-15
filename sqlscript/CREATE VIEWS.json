@@ -1,0 +1,17 @@
+{
+	"name": "CREATE VIEWS",
+	"properties": {
+		"content": {
+			"query": "--CALENDER\nCREATE VIEW gold.CALENDER AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/calender/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n\n--CUSTOMER\nCREATE VIEW gold.CUSTOMER AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/customer/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n\n--PRODUCT_CATEGORIES\nCREATE VIEW gold.PRODUCT_CATEGORIES AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/product_categories/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n\n--PRODUCT_SUBCATEGORIES\nCREATE VIEW gold.PRODUCT_SUBCATEGORIES AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/product_subcategories/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n\n--PRODUCTS\nCREATE VIEW gold.PRODUCTS AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/products/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n\n--RETURNS\nCREATE VIEW gold.RETURNS AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/returns/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n\n--TERRITORIES\nCREATE VIEW gold.TERRITORIES AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/territories/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n\n--SALES\nCREATE VIEW gold.SALES AS\nSELECT\n *\nFROM\n    OPENROWSET(\n        BULK 'https://storageadlsdemooin.blob.core.windows.net/silver/sales/',\n        FORMAT = 'PARQUET'\n    )AS QUERY1\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "awatabase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
