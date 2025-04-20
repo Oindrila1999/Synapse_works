@@ -1,0 +1,17 @@
+{
+	"name": "CREATE EXTERNAL TABLES",
+	"properties": {
+		"content": {
+			"query": "--CREATE MASTER KEY(FIRST TIME)\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'P@wd';\n\n--CREATE CERDENTIAL\nCREATE DATABASE SCOPED CREDENTIAL cred_oin\nWITH \nIDENTITY = 'Managed Identity';\n\n--CREATE EXTERNAL SOURCE(ONE FOR SILVER AND ONE FOR GOLD CONTAINER)\nCREATE EXTERNAL DATA SOURCE SOURCE_SILVER\nWITH\n(    \n    LOCATION = 'https://storageadlsdemooin.dfs.core.windows.net/silver',\n    CREDENTIAL = cred_oin\n);\n\nCREATE EXTERNAL DATA SOURCE SINK_GOLD\nWITH\n(    \n    LOCATION = 'https://storageadlsdemooin.dfs.core.windows.net/gold',\n    CREDENTIAL = cred_oin\n);\n\n--CREATE EXTERNAL FILE FORMAT\nCREATE EXTERNAL FILE FORMAT parquetfile\nWITH (\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);\n\n--CREATE EXTERNAL TABLES\nCREATE EXTERNAL TABLE gold.extcalender\nWITH\n(\n    LOCATION = 'ext_cal',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.CALENDER;\n\nCREATE EXTERNAL TABLE gold.extcustomer\nWITH\n(\n    LOCATION = 'ext_cust',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.CUSTOMER;\n\nCREATE EXTERNAL TABLE gold.extprod_cat\nWITH\n(\n    LOCATION = 'ext_prod_cat',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.PRODUCT_CATEGORIES;\n\nCREATE EXTERNAL TABLE gold.extprod_subcat\nWITH\n(\n    LOCATION = 'ext_prod_subcat',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.PRODUCT_SUBCATEGORIES;\n\nCREATE EXTERNAL TABLE gold.extprod\nWITH\n(\n    LOCATION = 'ext_prod',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.PRODUCTS;\n\nCREATE EXTERNAL TABLE gold.extreturn\nWITH\n(\n    LOCATION = 'ext_return',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.RETURNS;\n\nCREATE EXTERNAL TABLE gold.extterritories\nWITH\n(\n    LOCATION = 'ext_territories',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.TERRITORIES;\n\nCREATE EXTERNAL TABLE gold.extsales\nWITH\n(\n    LOCATION = 'ext_sales',\n    DATA_SOURCE = SINK_GOLD,\n    FILE_FORMAT = parquetfile\n)\nAS\nSELECT * FROM gold.SALES;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "awatabase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
